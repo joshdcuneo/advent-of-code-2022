@@ -1,14 +1,14 @@
 package day1
 
-type Elf struct {
+type elf struct {
 	inventory []int
 }
 
-func NewElf(inventory []int) Elf {
-	return Elf{inventory: inventory}
+func newElf(inventory []int) elf {
+	return elf{inventory: inventory}
 }
 
-func (e Elf) CalculateTotal() int {
+func (e elf) CalculateTotal() int {
 	total := 0
 
 	for _, item := range e.inventory {

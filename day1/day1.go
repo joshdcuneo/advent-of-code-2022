@@ -6,19 +6,19 @@ import (
 )
 
 func Part1() {
-	input := NewInput()
+	input := newInput()
+	defer input.close()
 
-	elves := input.Parse()
+	elves := input.parse()
 
 	fmt.Printf("The elf with the highest total has %d calories", totalAndSort(elves)[0])
-
-	input.Close()
 }
 
 func Part2() {
-	input := NewInput()
+	input := newInput()
+	defer input.close()
 
-	sorted := totalAndSort(input.Parse())
+	sorted := totalAndSort(input.parse())
 	t := 0
 
 	for _, n := range sorted[:3] {
@@ -26,11 +26,9 @@ func Part2() {
 	}
 
 	fmt.Printf("The top 3 elves have %d calories", t)
-
-	input.Close()
 }
 
-func totalAndSort(elves []Elf) []int {
+func totalAndSort(elves []elf) []int {
 	totals := make([]int, len(elves))
 
 	for _, e := range elves {

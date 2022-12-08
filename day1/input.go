@@ -6,42 +6,42 @@ import (
 	"strconv"
 )
 
-type Input struct {
+type input struct {
 	filepath string
 	file     *os.File
 }
 
-func NewInput() Input {
-	return Input{filepath: "day1/input.txt", file: nil}
+func newInput() input {
+	return input{filepath: "day1/input.txt", file: nil}
 }
 
-func (i *Input) Parse() []Elf {
+func (i *input) parse() []elf {
 	scanner := i.scan()
 
-	var elves []Elf
+	var elves []elf
 	var inventory []int
 
 	for scanner.Scan() {
 		if line := parseLine(scanner.Text()); line != nil {
 			inventory = append(inventory, *line)
 		} else {
-			elves = append(elves, NewElf(inventory))
+			elves = append(elves, newElf(inventory))
 			inventory = []int{}
 		}
 	}
 
-	elves = append(elves, NewElf(inventory))
+	elves = append(elves, newElf(inventory))
 
 	return elves
 }
 
-func (i *Input) Close() {
+func (i *input) close() {
 	if err := i.file.Close(); err != nil {
 		panic(err)
 	}
 }
 
-func (i *Input) scan() *bufio.Scanner {
+func (i *input) scan() *bufio.Scanner {
 	i.open()
 
 	fileScanner := bufio.NewScanner(i.file)
@@ -50,7 +50,7 @@ func (i *Input) scan() *bufio.Scanner {
 	return fileScanner
 }
 
-func (i *Input) open() {
+func (i *input) open() {
 	file, err := os.Open(i.filepath)
 	if err != nil {
 		panic(err)
